@@ -1,5 +1,4 @@
 import React from 'react'
-// import { RiHomeWifiLine, VscDashboard, MdAutoAwesome, AiOutlineUser, MdLogout } from 'react-icons/fa';
 import { AiOutlineHome } from "@react-icons/all-files/ai/AiOutlineHome";
 import { VscDashboard } from "@react-icons/all-files/vsc/VscDashboard";
 import { MdAutoAwesome } from "react-icons/md";

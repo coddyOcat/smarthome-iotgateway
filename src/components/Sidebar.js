@@ -2,10 +2,17 @@ import styled from 'styled-components'
 import { SidebarData } from './SidebarData'
 import { RiHomeWifiLine } from "@react-icons/all-files/ri/RiHomeWifiLine";
 import { FiLogOut } from "@react-icons/all-files/fi/FiLogOut";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 
 const Sidebar = () => {
+  const [pathname, setPathname] = useState('')
+  const location = useLocation()
+  useEffect(() => {
+    console.log(location)
+    setPathname(location.pathname)
+  }, [location])
   return (
     <Container>
       <Logo>
@@ -15,7 +22,7 @@ const Sidebar = () => {
         {SidebarData.map((val, key) => {
           return (
           <Item key={key}>
-            <ItemLink to={val.link}>
+            <ItemLink to={val.link} className={pathname === val.link ? 'active' : ''}>
                 <Icon>{val.icon}</Icon>
                 <Title>{val.title}</Title>
             </ItemLink>
@@ -32,7 +39,7 @@ const Sidebar = () => {
 
 const Container = styled.div`
   height: 100vh;
-  width: 15%;
+  min-width: 15%;
   background-color: #5E44FF;
   margin-right: 10px;
   display: flex;
@@ -74,6 +81,7 @@ const Item = styled.li`
   display: flex;
   height: 50px;
   width: 100%;
+  margin: 5px 0;
 `
 
 const ItemLink = styled(Link)`
@@ -86,6 +94,11 @@ const ItemLink = styled(Link)`
   width: 100%;
   border-radius: 20px;
   :hover {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+  }
+  &.active {
     background-color: white;
     color: black;
     cursor: pointer;

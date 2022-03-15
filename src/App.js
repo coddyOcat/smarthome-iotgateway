@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './components/pages/Home';
+import Home from './components/pages/Home/Home';
 import Dashboard from './components/pages/Dashboard';
 import Auto from './components/pages/Auto';
 import User from './components/pages/User';
@@ -39,7 +39,7 @@ const Container = styled.div`
 const Main = styled.div`
   display: flex;
   flex-direction: column;
-  width: 85%;
+  min-width: 85%;
 `
 
 export default App;
