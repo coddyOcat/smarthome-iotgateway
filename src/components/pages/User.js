@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import images from '../images'
 
 const UserData = [
   {
@@ -24,10 +25,7 @@ const User = () => {
   return (
     <UserContainer>
       <UserAvatar>
-        <Avatar>
-          User
-          
-        </Avatar> 
+        <Avatar src={images.avatar}/>
       </UserAvatar>
       <UserInfo>
         {
@@ -62,16 +60,19 @@ const UserContainer = styled.div`
 
 const UserAvatar = styled.div`
   background-color: #FFF;
+  display:flex;
+  justify-content:center;
+  align-items:center;
   width: 35%;
-  height: 25%;
+  height: 35%;
   border-radius: 10px;
   margin: 20px 10px 10px 10px;
 `
 
-const Avatar = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const Avatar = styled.img`
+  margin-top:-30px;
+  width: 50%;
+  height: 70%;
 `
 
 const UserInfo = styled.div`
@@ -92,14 +93,20 @@ const Info = styled.div`
 `
 
 const Title = styled.div`
+  width: 30%;
   font-size: 1.5rem;
   font-weight: 600;
 `
 
 const Text = styled.div`
+  width: 65%;
 `
 
 const Edit = styled.div`
+  width: 5%;
   color: blue;
+  :hover {
+
+  }
 `
 export default User
