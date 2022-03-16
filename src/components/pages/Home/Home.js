@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import Devices from './Devices'
 import Rooms from './Rooms'
 
 const Home = () => {
@@ -13,7 +14,7 @@ const Home = () => {
         <TypeButton className={type === 'room' ? 'active' : ''} onClick={() => changeType('room')}>ROOMS</TypeButton>
         <TypeButton className={type === 'device' ? 'active' : ''} onClick={() => changeType('device')}>DEVICES</TypeButton>
       </Row>
-      {type === 'room' ? <Rooms/> : ''}
+      {type === 'room' ? <Rooms/> : <Devices/>}
     </Container>
   )
 }
@@ -26,7 +27,7 @@ const Row = styled.div`
 
 const TypeButton = styled.div`
   margin-right: 5px;
-  padding: 0 15px;
+  padding: 0 20px;
   padding-bottom: 5px;
   font-weight: bold;
   :hover {

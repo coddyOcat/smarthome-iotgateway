@@ -33,6 +33,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: row;
   width: 80%;
+  height: 750px;
   margin: 0 auto;
 `
 
