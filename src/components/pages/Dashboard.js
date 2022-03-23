@@ -81,7 +81,7 @@ function Dashboard() {
         <DashboardContainer>
             <Measure>
                 <TempHumi>
-                    <Temperature>
+                    <Item>
                         <TempIcon>
                             <DeviceThermostatIcon style={{ fontSize: 50 }} />
                         </TempIcon>
@@ -95,8 +95,8 @@ function Dashboard() {
                                 </DataSign>25&deg;C
                             </Data>
                         </DataContainer >
-                    </Temperature>
-                    <Humidity>
+                    </Item>
+                    <Item>
                         <TempIcon>
                             <OpacityIcon style={{ fontSize: 50 }} />
                         </TempIcon>
@@ -108,7 +108,7 @@ function Dashboard() {
                                 30%
                             </Data>
                         </DataContainer >
-                    </Humidity>
+                    </Item>
                 </TempHumi>
                 <Gas>
                     <TempIcon>
@@ -125,22 +125,22 @@ function Dashboard() {
                 </Gas>
             </Measure>
             <Statistic>
-                <TempChart>
+                <BoxChart>
                     <Chart
                         options={chartOptions1.options}
                         series={chartOptions1.series}
                         type='line'
                         height='100%'
                     />
-                </TempChart>
-                <HumidityChart>
+                </BoxChart>
+                <BoxChart>
                     <Chart
                         options={chartOptions2.options}
                         series={chartOptions2.series}
                         type='line'
                         height='100%'
                     />
-                </HumidityChart>
+                </BoxChart>
             </Statistic>
         </DashboardContainer>
     )
@@ -148,67 +148,70 @@ function Dashboard() {
 
 const DashboardContainer = styled.div`
     background-color: #F3F4FF;
-    padding-top:20px;
+    padding: 15px;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
 `
 
 const Measure = styled.div`
     display: flex;
-    justify-content: space-evenly;
+    height: 50%;
+    justify-content: space-between;
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
 `
 
 const TempHumi = styled.div`
-  width: 400px;
+    width: 49%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 `
 
-const Temperature = styled.div`
-    width: 80%;
+const Item = styled.div`
+    width: 100%;
     display: flex;
+    height: 49%;
     border-radius: 8px;
     background-color: #fff;
     align-items: center;
-    padding-left: 10px;
-    margin-top: 10px;
-`
-
-const Humidity = styled.div`
-width: 80%;
-display: flex;
-border-radius: 8px;
-background-color: #fff;
-align-items: center;
-padding-left: 10px;
-margin-top: 10px;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 `
 
 const Gas = styled.div`
     display:flex;
     align-items: center;
     background-color: #fff;
-    width: 400px;
-    margin-top: 10px;
+    width: 49%;
     border-radius:8px;
-    padding-left: 10px;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 `
 
 const Statistic = styled.div`
     display:flex;
-    flex-direction: column;
-    margin-top: 50px;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 50%;
     align-items: center;
 `
 
-const TempChart = styled.div`
-    width: 650px;
-    margin-bottom: 40px;
+const BoxChart = styled.div`
+    width: 49%;
+    height: 90%;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 5px;
 `
 
-const HumidityChart = styled.div`
-  width: 650px;
-`
 
 const TempIcon = styled.div`
-    width: 60px;
-    height: 60px;
+    width: 100px;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -241,8 +244,8 @@ const DataGas = styled.div`
 `
 
 const GasChart = styled.div`
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
 `
 
 
