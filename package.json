@@ -1,38 +1,73 @@
 {
-  "name": "smarthome-iotgateway",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.16.2",
-    "@testing-library/react": "^12.1.4",
-    "@testing-library/user-event": "^13.5.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "5.0.0",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+    "name": "smarthome-iotgateway",
+    "version": "0.1.0",
+    "description": "A basic smarthome model",
+    "license": "MIT",
+    "private": false,
+    "main": "src/server/index.js",
+    "scripts": {
+        "dev": "concurrently \"npm run server\" \"npm run client\"",
+        "client": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
+        "server": "nodemon src/server/index.js",
+        "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
+        "start": "npm run client",
+        "test": "jest --config config/jest.config.js",
+        "format": "prettier --write \"./**/*.{js,jsx,ts,tsx,css,scss,md}\"",
+        "eslint": "eslint src/**/*.{js,jsx}"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/coddyOcat/smarthome-iotgateway"
+    },
+    "keywords": [
+        "iot",
+        "react",
+        "nodejs",
+        "mongodb",
+        "github"
     ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+    "bugs": {
+        "url": "https://github.com/coddyOcat/smarthome-iotgateway/issues"
+    },
+    "homepage": "",
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "dependencies": {
+        "axios": "^0.26.1",
+        "express": "^4.17.3",
+        "mongoose": "^6.2.8",
+        "prettier": "^2.5.1",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.17.7",
+        "@babel/preset-env": "^7.16.11",
+        "@babel/preset-react": "^7.16.7",
+        "babel-loader": "^8.2.3",
+        "concurrently": "^7.0.0",
+        "cross-env": "^7.0.3",
+        "eslint": "^8.11.0",
+        "html-webpack-plugin": "^5.5.0",
+        "nodemon": "^2.0.15",
+        "webpack": "^5.70.0",
+        "webpack-cli": "^4.9.2",
+        "webpack-dev-server": "^3.1.14"
+    }
 }
