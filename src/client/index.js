@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const App = () => {
+function App() {
     return (
         <div class="App">Hello World</div>
     )
