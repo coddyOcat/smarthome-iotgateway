@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: path.join(path.dirname(__dirname), "src", "index.js"),
+  entry: path.join(path.dirname(__dirname), "src", "client", "index.js"),
   output: {
     path:path.join(path.dirname(__dirname), "dist"),
   },
@@ -23,7 +23,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(path.dirname(__dirname), "public", "index.html"),
-      favicon: path.join(path.dirname(__dirname), "public", "favicon.ico"),
     }),
   ],
+  devServer: {
+    port: 7000
+  }
 }
