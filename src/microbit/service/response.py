@@ -1,2 +1,2 @@
 def doSomething():
-    pass
+    print("Hello")
