@@ -8,16 +8,16 @@ const router = express.Router()
 // router.use("/auth", syncRoutes)
 
 const {
-    signup,
-    login,
-    showUser,
-    updateUser
+    signup, // dang ky
+    login, // dang nhap
+    showUser, // lay thong tin tai khoan
+    updateUser // cap nhat thong tin tai khoan
 } = require("../controller/user_account")
 
 const {
-    loadAreasByUser,
-    createArea,
-    showArea,
+    loadAreasByUser, // lay thong tin khu vuc thuoc ve tai khoan nay
+    createArea, // tao them khu vuc
+    showArea, // lay thong tin khu vuc
     updateArea,
     removeArea,
     loadUserShared
@@ -25,10 +25,12 @@ const {
 
 const {
     loadDevices,
-    loadDevicesByArea,
+    loadListTypeNameByUser, // lay danh sach typename
+    loadDevicesByArea, // lay thong tin thiet bi thuoc ve khu vuc nay
     loadDevicesByActive,
     loadDevicesByTypeName,
-    createDevice,
+    loadDevicesByTypeNameAndArea, // lay danh sach thiet bi boi typename va area
+    createDevice, // them thiet bi
     showDevice,
     updateDevice,
     removeDevice
@@ -37,15 +39,15 @@ const {
 const {
     loadDatas,
     loadDatasByTime,
-    loadDatasByDevice,
+    loadDatasByDevice, //
     createData,
-    showData,
+    showData, //
     updateData,
     removeData
 } = require("../controller/data")
 
 const {
-    loadModes,
+    loadModesByUser,
     loadModesByActive,
     createMode,
     showMode,

@@ -7,6 +7,7 @@ const areaProfile = new Schema(
         userAccount: { type: Schema.Types.ObjectId, ref: "UserAccount", required: true },
         userShared: [{ type: Schema.Types.ObjectId, ref: "UserAccount"}],
         numDevice: { type: Number, default: 0 },
+        numActive: { type: Number, default: 0}
     }
 )
 
