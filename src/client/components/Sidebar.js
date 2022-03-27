@@ -8,6 +8,8 @@ import { AiOutlineUser } from "@react-icons/all-files/ai/AiOutlineUser";
 import { Link, useLocation } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 
+import { useParams } from 'react-router-dom'
+
 const SidebarData = [
     {
         title: 'Home',
@@ -32,36 +34,38 @@ const SidebarData = [
 ]
 
 const Sidebar = () => {
-  const [pathname, setPathname] = useState('')
-  const location = useLocation()
-  useEffect(() => {
-    console.log(location)
-    setPathname(location.pathname)
-  }, [location])
-  return (
-    <Container>
-        <Logo>
-            <RiHomeWifiLine/>
-        </Logo>
-        <Items>
-            {SidebarData.map((val, key) => {
-            return (
-            <Item key={key}>
-                <ItemLink to={val.link} className={pathname === val.link ? 'active' : ''}>
-                    <Icon>{val.icon}</Icon>
-                    <Title>{val.title}</Title>
-                </ItemLink>
-            </Item>)
-            })}
-        </Items>
-        <Link to="/login">
-            <Logout>
-                <Icon><FiLogOut/></Icon>
-                <Title>Logout</Title>
-            </Logout>
-        </Link>
-    </Container>
-  )
+    const { id } = useParams()
+    const [pathname, setPathname] = useState('')
+    const location = useLocation()
+    useEffect(() => {
+        console.log(location)
+        setPathname(location.pathname)
+    }, [location])
+    return (
+        <Container>
+            <Logo>
+                <RiHomeWifiLine/>
+            </Logo>
+            <Items>
+                {SidebarData.map((val, key) => {
+                    const toLink = `/${id}` + val.link
+                    return (
+                    <Item key={key}>
+                        <ItemLink to={toLink} className={pathname === toLink ? 'active' : ''}>
+                            <Icon>{val.icon}</Icon>
+                            <Title>{val.title}</Title>
+                        </ItemLink>
+                    </Item>)
+                })}
+            </Items>
+            <Link to="/login">
+                <Logout>
+                    <Icon><FiLogOut/></Icon>
+                    <Title>Logout</Title>
+                </Logout>
+            </Link>
+        </Container>
+    )
 }
 
 const Container = styled.div`

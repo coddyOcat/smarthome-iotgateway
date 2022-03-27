@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect} from 'react'
 import styled from "styled-components"
 import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat';
 import OpacityIcon from '@mui/icons-material/Opacity';
@@ -9,6 +9,9 @@ import Chart from "react-apexcharts";
 
 import Sidebar from "../sidebar"
 import Topbar from "../topbar";
+
+import { useParams } from 'react-router-dom'
+import { loadDatasByDevice } from '../../service/axios'
 
 const chartOptions1 = {
     series: [{
@@ -78,8 +81,19 @@ const chartOptions2 = {
 
 }
 
-
 function Home() {
+    const { id } = useParams()
+    // const [temp, setTemp] = useState(0)
+    // const [humid, setHumid] = useState(0)
+    // const [gas, setGas] = useState(0)
+    // setInterval( async () => {
+    //     const tempNew = await loadDatasByDevice("temp-1")
+    //     const humidNew = await loadDatasByDevice("humid-1")
+    //     const gasNew = await loadDatasByDevice("gas-1")
+    //     setTemp(tempNew)
+    //     setHumid(humidNew)
+    //     setGas(gasNew)
+    // }, 1000)
     return (
         <DashboardContainer>
             <Measure>
