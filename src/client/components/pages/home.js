@@ -82,18 +82,22 @@ const chartOptions2 = {
 }
 
 function Home() {
-    const { id } = useParams()
-    // const [temp, setTemp] = useState(0)
-    // const [humid, setHumid] = useState(0)
-    // const [gas, setGas] = useState(0)
-    // setInterval( async () => {
-    //     const tempNew = await loadDatasByDevice("temp-1")
-    //     const humidNew = await loadDatasByDevice("humid-1")
-    //     const gasNew = await loadDatasByDevice("gas-1")
-    //     setTemp(tempNew)
-    //     setHumid(humidNew)
-    //     setGas(gasNew)
-    // }, 1000)
+    // const { id } = useParams()
+    const [temp, setTemp] = useState(0)
+    const [humid, setHumid] = useState(0)
+    const [gas, setGas] = useState(0)
+    setInterval( async () => {
+        const tempNew = loadDatasByDevice("temperature-1")
+        const humidNew = loadDatasByDevice("humidity-1")
+        const gasNew = loadDatasByDevice("gas-1")
+        const tempNew1 = await tempNew
+        setTemp(tempNew1[0].dataValue)
+        const humidNew1 = await humidNew
+        setHumid(humidNew1[0].dataValue)
+        const gasNew1 = await gasNew
+        setGas(gasNew1[0].dataValue)
+        console.log({temp, humid, gas})
+    }, 5000)
     return (
         <DashboardContainer>
             <Measure>
