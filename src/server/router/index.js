@@ -60,6 +60,9 @@ router.get("/welcome", (_, res) => {
     res.send("OK")
 })
 
+router.post("/signup", signup)
+router.post("/login", login)
+
 
 module.exports = (app) => {
     app.use("/api", router)

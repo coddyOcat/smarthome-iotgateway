@@ -13,20 +13,37 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import { signup } from '../../service/axios';
+import { useNavigate } from 'react-router'
+
 const theme = createTheme();
 
-export default function signup() {
-    const handleSubmit = (event) => {
+export default function signupPage() {
+
+    const navigate = useNavigate()
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
+        // console.log({
+        //     fname: data.get('fname'),
+        //     lname: data.get('lname'),
+        //     username: data.get('username'),
+        //     password: data.get('password'),
+        //     email: data.get('email'),
+        //     phone: data.get('phone')
+        // });
+        const formData = {
             fname: data.get('fname'),
             lname: data.get('lname'),
             username: data.get('username'),
             password: data.get('password'),
             email: data.get('email'),
             phone: data.get('phone')
-        });
+        }
+        const res = await signup(formData);
+        if (res.status == "OK") navigate(`/login`)
+        else alert("ERROR IN FORM")
     };
 
     return (

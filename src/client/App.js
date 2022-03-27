@@ -16,10 +16,10 @@ export default function app() {
                     <Route path="" element={<Login/>}/>
                     <Route path="login" element={<Login/>}/>
                     <Route path="signup" element={<Signup/>}/>
-                    <Route path="home" element={<Home/>}/>
-                    <Route path="dashboard" element={<Dashboard/>}/>
-                    <Route path="mode" element={<Mode/>}/>
-                    <Route path="user" element={<User/>}/>
+                    <Route path="/:id/home" element={<Home/>}/>
+                    <Route path="/:id/dashboard" element={<Dashboard/>}/>
+                    <Route path="/:id/mode" element={<Mode/>}/>
+                    <Route path="/:id/user" element={<User/>}/>
                 </Routes>
             </Router>
         </div>

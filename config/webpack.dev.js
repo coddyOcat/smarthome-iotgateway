@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -36,10 +37,14 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: path.join(path.dirname(__dirname), "public", "index.html"),
         }),
+        new webpack.ProvidePlugin({
+            process: 'process/browser',
+        })
     ],
+    devtool: "source-map",
     devServer: {
         open: true,
         port: 7000,
-        historyApiFallback: true,
+        historyApiFallback: true
     }
 }

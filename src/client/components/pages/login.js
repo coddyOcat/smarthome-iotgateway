@@ -13,16 +13,29 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import { login } from '../../service/axios';
+import { useNavigate } from 'react-router'
+
 const theme = createTheme();
 
-export default function login() {
-    const handleSubmit = (event) => {
+export default function loginPage() {
+
+    const navigate = useNavigate()
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
+        // console.log({
+        //     username: data.get('username'),
+        //     password: data.get('password')
+        // });
+        const formData = {
             username: data.get('username'),
-            password: data.get('password'),
-        });
+            password: data.get('password')
+        }
+        const res = await login(formData);
+        if (res.status == "OK") navigate(`/${res.userId}/home`)
+        else alert("WRONG IN FORM")
     };
 
     return (
