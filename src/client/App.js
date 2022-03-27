@@ -1,46 +1,27 @@
-import styled from 'styled-components';
-import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './components/pages/Home/Home';
-import Dashboard from './components/pages/Dashboard';
-import Auto from './components/pages/Auto';
-import User from './components/pages/User';
-import Sidebar from './components/Sidebar';
-import Topbar from './components/Topbar';
+import React from "react"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
-function App() {
-  return (
-    <div>
-      <Router>
-        <Container>
-          <Sidebar/>
-          <Main>
-            <Topbar/>
-            <Routes>
-              <Route path="/" element={<Home/>}/>
-              <Route path="/dashboard" element={<Dashboard/>}/>
-              <Route path="/auto" element={<Auto/>}/>
-              <Route path="/myinfo" element={<User/>}/>
-            </Routes>
-          </Main>
-        </Container>
-      </Router>
-    </div>
-  );
+import Login from "./components/pages/login"
+import Signup from "./components/pages/signup"
+import Home from "./components/pages/home"
+import Dashboard from "./components/pages/dashboard"
+import Mode from "./components/pages/mode"
+import User from "./components/pages/user"
+
+export default function app() {
+    return (
+        <div>
+            <Router>
+                <Routes>
+                    <Route path="" element={<Login/>}/>
+                    <Route path="login" element={<Login/>}/>
+                    <Route path="signup" element={<Signup/>}/>
+                    <Route path="home" element={<Home/>}/>
+                    <Route path="dashboard" element={<Dashboard/>}/>
+                    <Route path="mode" element={<Mode/>}/>
+                    <Route path="user" element={<User/>}/>
+                </Routes>
+            </Router>
+        </div>
+    )
 }
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 80%;
-  height: 750px;
-  margin: 0 auto;
-`
-
-const Main = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-width: 85%;
-`
-
-export default App;

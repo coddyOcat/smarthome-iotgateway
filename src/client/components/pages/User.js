@@ -2,6 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import images from '../images'
 
+import Sidebar from "../sidebar"
+import Topbar from "../topbar";
+
 const UserData = [
   {
     title: 'Name',
@@ -44,10 +47,35 @@ const User = () => {
           })
         }
       </UserInfo>
-    </UserContainer> 
+    </UserContainer>
   )
 }
 
+export default function userPage() {
+    return (
+        <Container>
+            <Sidebar/>
+            <Main>
+                <Topbar/>
+                <User/>
+            </Main>
+        </Container>
+    )
+}
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  height: 750px;
+  margin: 0 auto;
+`
+
+const Main = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-width: 85%;
+`
 const UserContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -109,4 +137,3 @@ const Edit = styled.div`
 
   }
 `
-export default User

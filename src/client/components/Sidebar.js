@@ -1,10 +1,35 @@
 import styled from 'styled-components'
-import { SidebarData } from './SidebarData'
 import { RiHomeWifiLine } from "@react-icons/all-files/ri/RiHomeWifiLine";
 import { FiLogOut } from "@react-icons/all-files/fi/FiLogOut";
+import { AiOutlineHome } from "@react-icons/all-files/ai/AiOutlineHome";
+import { VscDashboard } from "@react-icons/all-files/vsc/VscDashboard";
+import { MdAutoAwesome } from "react-icons/md";
+import { AiOutlineUser } from "@react-icons/all-files/ai/AiOutlineUser";
 import { Link, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
+const SidebarData = [
+    {
+        title: 'Home',
+        icon: <AiOutlineHome/>,
+        link: '/home'
+    },
+    {
+        title: 'Dashboard',
+        icon: <VscDashboard/>,
+        link: '/dashboard'
+    },
+    {
+        title: 'Mode',
+        icon: <MdAutoAwesome/>,
+        link: '/mode'
+    },
+    {
+        title: 'User',
+        icon: <AiOutlineUser/>,
+        link: '/user'
+    }
+]
 
 const Sidebar = () => {
   const [pathname, setPathname] = useState('')
@@ -15,24 +40,26 @@ const Sidebar = () => {
   }, [location])
   return (
     <Container>
-      <Logo>
-        <RiHomeWifiLine/>
-      </Logo>
-      <Items>
-        {SidebarData.map((val, key) => {
-          return (
-          <Item key={key}>
-            <ItemLink to={val.link} className={pathname === val.link ? 'active' : ''}>
-                <Icon>{val.icon}</Icon>
-                <Title>{val.title}</Title>
-            </ItemLink>
-          </Item>)
-        })}
-      </Items>
-      <Logout>
-        <Icon><FiLogOut/></Icon>
-        <Title>Logout</Title>
-      </Logout>
+        <Logo>
+            <RiHomeWifiLine/>
+        </Logo>
+        <Items>
+            {SidebarData.map((val, key) => {
+            return (
+            <Item key={key}>
+                <ItemLink to={val.link} className={pathname === val.link ? 'active' : ''}>
+                    <Icon>{val.icon}</Icon>
+                    <Title>{val.title}</Title>
+                </ItemLink>
+            </Item>)
+            })}
+        </Items>
+        <Link to="/login">
+            <Logout>
+                <Icon><FiLogOut/></Icon>
+                <Title>Logout</Title>
+            </Logout>
+        </Link>
     </Container>
   )
 }

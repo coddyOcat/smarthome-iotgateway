@@ -7,6 +7,9 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import Chart from "react-apexcharts";
 
+import Sidebar from "../sidebar"
+import Topbar from "../topbar";
+
 const chartOptions1 = {
     series: [{
         name: 'Temperature',
@@ -76,7 +79,7 @@ const chartOptions2 = {
 }
 
 
-function Dashboard() {
+function Home() {
     return (
         <DashboardContainer>
             <Measure>
@@ -145,6 +148,32 @@ function Dashboard() {
         </DashboardContainer>
     )
 }
+
+export default function homePage() {
+    return (
+        <Container>
+            <Sidebar/>
+            <Main>
+                <Topbar/>
+                <Home />
+            </Main>
+        </Container>
+    )
+}
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  height: 750px;
+  margin: 0 auto;
+`
+
+const Main = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-width: 85%;
+`
 
 const DashboardContainer = styled.div`
     background-color: #F3F4FF;
@@ -247,6 +276,3 @@ const GasChart = styled.div`
     width: 150px;
     height: 150px;
 `
-
-
-export default Dashboard

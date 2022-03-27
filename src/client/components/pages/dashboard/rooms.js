@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
-import Device from './Device';
+import Device from './device';
 
 const Rooms = () => {
   const rooms = [

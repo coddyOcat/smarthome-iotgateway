@@ -3,6 +3,10 @@ import styled from 'styled-components'
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import SecurityIcon from '@mui/icons-material/Security';
 import Switch from '@mui/material/Switch';
+
+import Sidebar from "../sidebar"
+import Topbar from "../topbar";
+
 const ModeData = [
   {
     title: 'Light Mode',
@@ -61,6 +65,32 @@ const Auto = () => {
   )
 }
 
+export default function modePage() {
+    return (
+        <Container>
+            <Sidebar/>
+            <Main>
+                <Topbar/>
+                <Auto />
+            </Main>
+        </Container>
+    )
+}
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  height: 750px;
+  margin: 0 auto;
+`
+
+const Main = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-width: 85%;
+`
+
 const AutoContainer = styled.div`
   display: flex;
   flex-wrap:wrap;
@@ -106,8 +136,3 @@ const ItemDescription = styled.div`
   font-size: 0.8rem;
   font-weight: 200;
 `
-
-
-
-
-export default Auto
