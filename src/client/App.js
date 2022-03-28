@@ -7,6 +7,7 @@ import Home from "./components/pages/home"
 import Dashboard from "./components/pages/dashboard"
 import Mode from "./components/pages/mode"
 import User from "./components/pages/user"
+import './App.css'
 
 export default function app() {
     return (
