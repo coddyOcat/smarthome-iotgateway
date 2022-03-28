@@ -1,40 +1,25 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import SecurityIcon from '@mui/icons-material/Security';
+import ModeFanOffIcon from '@mui/icons-material/ModeFanOff';
 import Switch from '@mui/material/Switch';
 
 import Sidebar from "../sidebar"
 import Topbar from "../topbar";
-
-const ModeData = [
-  {
-    title: 'Light Mode',
-    icon: <LightbulbIcon style={{fontSize:50}}/>,
-    description: 'You can switch auto mode on light here'
-  },
-  {
-    title: 'Security Mode',
-    icon: <SecurityIcon style={{fontSize:50}}/>,
-    description: 'You can switch security mode here'
-  },
-  {
-    title: 'Light Mode',
-    icon: <LightbulbIcon style={{fontSize:50}}/>,
-    description: 'You can switch security mode here'
-  },
-  {
-    title: 'Security Mode',
-    icon: <SecurityIcon style={{fontSize:50}}/>,
-    description: 'You can switch security mode here'
-  }
-]
 
 import { useParams } from "react-router-dom"
 import { loadModesByUser } from "../../service/axios"
 
 const Auto = () => {
     const {id} = useParams()
+    const [ModeData, setModeData] = useState([
+        {
+          title: 'Light Mode',
+          icon: <LightbulbIcon style={{fontSize:50}}/>,
+          description: 'You can switch auto mode on light here'
+        }
+    ])
     useEffect( async() => {
         const listModes = await loadModesByUser(id)
         const lisst = listModes.map( item => {
@@ -54,7 +39,7 @@ const Auto = () => {
             } else if (item.name == "fan-mode") {
                 form = {
                     title : 'Fan Mode',
-                    icon : <LightbulbIcon style={{fontSize:50}}/>,
+                    icon : <ModeFanOffIcon style={{fontSize:50}}/>,
                     description : 'You can switch fan mode here'
                 }
             }
@@ -63,7 +48,7 @@ const Auto = () => {
                 ...form
             }
         })
-        console.log(lisst)
+        setModeData(lisst)
     },[])
   return (
     <AutoContainer>
