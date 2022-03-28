@@ -100,6 +100,7 @@ def processData(data):
 
         # to publish message to adafruit
         client.publish(splitData[0], splitData[1])
+        # updateData("/device/:deviceName/data", splitData[1])
 
 # Read data from microbit
 def readSerial():
