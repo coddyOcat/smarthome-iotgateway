@@ -5,13 +5,14 @@ import OpacityIcon from '@mui/icons-material/Opacity';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import Chart from "react-apexcharts";
+import ReactApexChart from "react-apexcharts";
 
 import Sidebar from "../sidebar"
 import Topbar from "../topbar";
 
 import { useParams } from 'react-router-dom'
 import { loadDatasByDevice } from '../../service/axios'
+import { ConstructionOutlined } from '@mui/icons-material';
 
 const chartOptions1 = {
     series: [{
@@ -90,6 +91,189 @@ function Home() {
         temperature_chart_1: [],
         gar_chart_1: []
     })
+    const [optionsTemp, setOptionsTemp] = useState({
+        chart: {
+          id: 'temp',
+          type: 'area',
+          height: 350,
+          zoom: {
+            autoScaleYaxis: true
+          }
+        },
+        annotations: {
+          yaxis: [{
+            y: 30,
+            borderColor: '#999',
+            label: {
+              show: true,
+              text: 'Support',
+              style: {
+                color: "#fff",
+                background: '#00E396'
+              }
+            }
+          }],
+          xaxis: [{
+            x: new Date('14 Nov 2012').getTime(),
+            borderColor: '#999',
+            yAxisIndex: 0,
+            label: {
+              show: true,
+              text: 'Rally',
+              style: {
+                color: "#fff",
+                background: '#775DD0'
+              }
+            }
+          }]
+        },
+        dataLabels: {
+          enabled: false
+        },
+        markers: {
+          size: 0,
+          style: 'hollow',
+        },
+        xaxis: {
+          type: 'datetime',
+          min: new Date(new Date().setDate(new Date().getDate() - 1)).getTime(),
+          tickAmount: 6,
+        },
+        tooltip: {
+          x: {
+            format: 'dd MMM yyyy'
+          }
+        },
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shadeIntensity: 1,
+            opacityFrom: 0.7,
+            opacityTo: 0.9,
+            stops: [0, 100]
+          }
+        },
+    })
+    const [optionsHumid, setOptionsHumid] = useState({
+        chart: {
+          id: 'humid',
+          type: 'area',
+          height: 350,
+          zoom: {
+            autoScaleYaxis: true
+          }
+        },
+        annotations: {
+          yaxis: [{
+            y: 30,
+            borderColor: '#999',
+            // label: {
+            //   show: true,
+            //   text: 'Support',
+            //   style: {
+            //     color: "#fff",
+            //     background: '#00E396'
+            //   }
+            // }
+          }],
+          xaxis: [{
+            x: new Date('14 Nov 2012').getTime(),
+            borderColor: '#999',
+            yAxisIndex: 0,
+            label: {
+              show: true,
+              text: 'Rally',
+              style: {
+                color: "#fff",
+                background: '#775DD0'
+              }
+            }
+          }]
+        },
+        dataLabels: {
+          enabled: false
+        },
+        markers: {
+          size: 0,
+          style: 'hollow',
+        },
+        xaxis: {
+          type: 'datetime',
+          min: new Date(new Date().setDate(new Date().getDate() - 1)).getTime(),
+          tickAmount: 6,
+        },
+        tooltip: {
+          x: {
+            format: 'dd MMM yyyy'
+          }
+        },
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shadeIntensity: 1,
+            opacityFrom: 0.7,
+            opacityTo: 0.9,
+            stops: [0, 100]
+          }
+        },
+    })
+    const [selectionTemp, setSelectionTemp] = useState('')
+    const [selectionHumid, setSelectionHumid] = useState('')
+    const updateData = (timeline, id)=> {
+        if(id==='temp') setSelectionTemp(timeline)
+        else setSelectionHumid(timeline)
+        switch (timeline) {
+            case 'one_day':
+                ApexCharts.exec(
+                id,
+                'zoomX',
+                new Date(new Date().setDate(new Date().getDate() - 1)).getTime(),
+                new Date(new Date()).getTime()
+                )
+                break
+            case 'one_week':
+                ApexCharts.exec(
+                id,
+                'zoomX',
+                new Date(new Date().setDate(new Date().getDate() - 7)).getTime(),
+                new Date(new Date()).getTime()
+                )
+                break
+            case 'one_month':
+                ApexCharts.exec(
+                id,
+                'zoomX',
+                new Date(new Date().setMonth(new Date().getMonth() - 1)).getTime(),
+                new Date(new Date()).getTime()
+                )
+                break
+            case 'six_months':
+                ApexCharts.exec(
+                id,
+                'zoomX',
+                new Date(new Date().setMonth(new Date().getMonth() - 6)).getTime(),
+                new Date(new Date()).getTime()
+                )
+                break
+            case 'one_year':
+                ApexCharts.exec(
+                id,
+                'zoomX',
+                new Date(new Date().setFullYear(new Date().getFullYear() - 1)).getTime(),
+                new Date(new Date()).getTime()
+                )
+                break
+            case 'all':
+                ApexCharts.exec(
+                id,
+                'zoomX',
+                new Date(new Date().setFullYear(new Date().getFullYear() - 2)).getTime(),
+                new Date(new Date()).getTime()
+                )
+                break
+            default:
+        }
+    }
     setTimeout( () => {
         Promise.all([
             loadDatasByDevice("temperature-1"),
@@ -97,12 +281,20 @@ function Home() {
             loadDatasByDevice("gas-1")
         ]).then((data) => {
             const [tempNew, humidNew, gasNew] = data
+            const temps = tempNew.map((temp)=> {
+                return [Date.parse(temp.created.slice(0,19)), temp.dataValue]
+            })
+            const humids = humidNew.map((humi)=> {
+                return [Date.parse(humi.created.slice(0,19)), humi.dataValue]
+            })
+            const tempSeries = [{data: temps}]
+            const humidSeries = [{data: humids}]
             setData({
-                temperature_1: tempNew[0].dataValue,
-                humidity_1: humidNew[0].dataValue,
-                gas_1: gasNew[0].dataValue,
-                temperature_chart_1: tempNew,
-                gar_chart_1: gasNew
+                temperature_1: tempNew[tempNew.length-1].dataValue,
+                humidity_1: humidNew[humidNew.length-1].dataValue,
+                gas_1: gasNew[gasNew.length-1].dataValue,
+                temperature_chart_1: tempSeries,
+                gar_chart_1: humidSeries
             })
         })
     }, 1000)
@@ -125,7 +317,7 @@ function Home() {
                             <Data>
                                 <DataSign>
                                     +
-                                </DataSign>25&deg;C
+                                </DataSign>{dataForm.temperature_1}&deg;C
                             </Data>
                         </DataContainer >
                     </Item>
@@ -138,7 +330,7 @@ function Home() {
                                 Humidity
                             </Label>
                             <Data>
-                                30%
+                                {dataForm.humidity_1}%
                             </Data>
                         </DataContainer >
                     </Item>
@@ -152,27 +344,65 @@ function Home() {
                             Gas sensivity
                         </Label>
                         <GasChart>
-                            <CircularProgressbar value={60} text={'60%'} />
+                            <CircularProgressbar value={dataForm.gas_1} text={dataForm.gas_1+'%'} />
                         </GasChart>
                     </DataGas>
                 </Gas>
             </Measure>
             <Statistic>
                 <BoxChart>
-                    <Chart
-                        options={chartOptions1.options}
-                        series={chartOptions1.series}
-                        type='line'
-                        height='100%'
-                    />
+                    <button id="one_day"
+                        onClick={()=>updateData('one_day', 'temp')} className={ (selectionTemp==='one_day' ? 'active' : '')}>
+                    1D
+                    </button>
+                    <button id="one_week"
+                        onClick={()=>updateData('one_week', 'temp')} className={ (selectionTemp==='one_week' ? 'active' : '')}>
+                    1W
+                    </button>
+                    <button id="one_month"
+                        onClick={()=>updateData('one_month','temp')} className={ (selectionTemp==='one_month' ? 'active' : '')}>
+                    1M
+                    </button>
+                    <button id="six_months"
+                        onClick={()=>updateData('six_months', 'temp')} className={ (selectionTemp==='six_months' ? 'active' : '')}>
+                    6M
+                    </button>
+                    <button id="one_year"
+                        onClick={()=>updateData('one_year', 'temp')} className={ (selectionTemp==='one_year' ? 'active' : '')}>
+                    1Y
+                    </button>
+                    <button id="all"
+                        onClick={()=>updateData('all', 'temp')} className={ (selectionTemp==='all' ? 'active' : '')}>
+                    ALL
+                    </button>
+                    <ReactApexChart options={optionsTemp} series={dataForm.temperature_chart_1} type="area" height={'90%'} />
                 </BoxChart>
                 <BoxChart>
-                    <Chart
-                        options={chartOptions2.options}
-                        series={chartOptions2.series}
-                        type='line'
-                        height='100%'
-                    />
+                    <button id="one_day"
+                        onClick={()=>updateData('one_day', 'humid')} className={ (selectionHumid==='one_day' ? 'active' : '')}>
+                    1D
+                    </button>
+                    <button id="one_week"
+                        onClick={()=>updateData('one_week', 'humid')} className={ (selectionHumid==='one_week' ? 'active' : '')}>
+                    1W
+                    </button>
+                    <button id="one_month"
+                        onClick={()=>updateData('one_month', 'humid')} className={ (selectionHumid==='one_month' ? 'active' : '')}>
+                    1M
+                    </button>
+                    <button id="six_months"
+                        onClick={()=>updateData('six_months', 'humid')} className={ (selectionHumid==='six_months' ? 'active' : '')}>
+                    6M
+                    </button>
+                    <button id="one_year"
+                        onClick={()=>updateData('one_year', 'humid')} className={ (selectionHumid==='one_year' ? 'active' : '')}>
+                    1Y
+                    </button>
+                    <button id="all"
+                        onClick={()=>updateData('all','humid')} className={ (selectionHumid==='all' ? 'active' : '')}>
+                    ALL
+                    </button>
+                    <ReactApexChart options={optionsHumid} series={dataForm.gar_chart_1} type="area" height={'90%'} />
                 </BoxChart>
             </Statistic>
         </DashboardContainer>
