@@ -1,6 +1,6 @@
 const Data = require("../model/data")
 const Device = require("../model/device")
-
+const Microbit = require("../service/microbit")
 
 exports.loadDatas = async (req, res, next) => {}
 exports.loadDatasByTime = async (req, res, next) => {}
@@ -18,7 +18,7 @@ exports.createData = async (req, res, next) => {}
 exports.showData = async (req, res, next) => {}
 exports.updateData = async (req, res, next) => {
     try {
-
+        Microbit(req.params.deviceName, (req.body.isActive? "1" : "0"))
         const device = await Device.findOneAndUpdate({ name: req.params.deviceName }, {isActive: req.body.isActive})
         const formData = new Data({
             dataValue: (req.body.isActive? "1" : "0"),

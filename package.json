@@ -6,6 +6,7 @@
     "private": false,
     "main": "src/server/index.js",
     "scripts": {
+        "demo": "concurrently \"npm run server\" \"npm run client\" \"py microbit/main.py\"",
         "dev": "concurrently \"npm run server\" \"npm run client\"",
         "client": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
         "server": "nodemon src/server/index.js",
@@ -52,6 +53,7 @@
         "cors": "^2.8.5",
         "express": "^4.17.3",
         "mongoose": "^6.2.8",
+        "python-shell": "^3.0.1",
         "react": "^17.0.2",
         "react-apexcharts": "^1.4.0",
         "react-circular-progressbar": "^2.0.4",
