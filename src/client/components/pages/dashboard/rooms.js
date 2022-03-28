@@ -74,7 +74,8 @@ const Rooms = () => {
         <Title>All devices</Title>
         <AllDevice>
             {listDevice.map((device)=> {
-              return (<Device setlistDevice={setlistDevice} listDevice={listDevice} device={device} shadow={true}/>)
+                if(device.typeName !== 'light-sensor' && device.typeName !== 'buzzer') 
+                    return (<Device setlistDevice={setlistDevice} listDevice={listDevice} device={device} shadow={true}/>)
             })}
         </AllDevice>
         </Container>
@@ -82,9 +83,9 @@ const Rooms = () => {
 }
 
 const AllDevice = styled.div`
-display: flex;
-flex-wrap: wrap;
-justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 `
 
 const Title = styled.div`
