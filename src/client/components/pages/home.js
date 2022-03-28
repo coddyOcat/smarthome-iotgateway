@@ -83,21 +83,33 @@ const chartOptions2 = {
 
 function Home() {
     // const { id } = useParams()
-    const [temp, setTemp] = useState(0)
-    const [humid, setHumid] = useState(0)
-    const [gas, setGas] = useState(0)
-    setInterval( async () => {
-        const tempNew = loadDatasByDevice("temperature-1")
-        const humidNew = loadDatasByDevice("humidity-1")
-        const gasNew = loadDatasByDevice("gas-1")
-        const tempNew1 = await tempNew
-        setTemp(tempNew1[0].dataValue)
-        const humidNew1 = await humidNew
-        setHumid(humidNew1[0].dataValue)
-        const gasNew1 = await gasNew
-        setGas(gasNew1[0].dataValue)
-        console.log({temp, humid, gas})
-    }, 5000)
+    const [dataForm, setData] = useState({
+        temperature_1: 0,
+        humidity_1: 0,
+        gas_1: 0,
+        temperature_chart_1: [],
+        gar_chart_1: []
+    })
+    setTimeout( () => {
+        Promise.all([
+            loadDatasByDevice("temperature-1"),
+            loadDatasByDevice("humidity-1"),
+            loadDatasByDevice("gas-1")
+        ]).then((data) => {
+            const [tempNew, humidNew, gasNew] = data
+            setData({
+                temperature_1: tempNew[0].dataValue,
+                humidity_1: humidNew[0].dataValue,
+                gas_1: gasNew[0].dataValue,
+                temperature_chart_1: tempNew,
+                gar_chart_1: gasNew
+            })
+        })
+    }, 1000)
+
+    useEffect(() => {
+        console.log(dataForm)
+    }, [dataForm])
     return (
         <DashboardContainer>
             <Measure>
