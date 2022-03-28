@@ -46,11 +46,11 @@ export const login =  async (formData) => {
 // }
 
 // // DASHBOARD PAGE
-// export const updateData =  async (deviceId, formData) => {
-//     url = `/device/${deviceId}/data`
-//     const { data }  = await axios.post(url, formData)
-//     return data
-// }
+export const updateData =  async (deviceId, formData) => {
+    url = `/device/${deviceId}/data`
+    const { data }  = await axios.post(url, formData)
+    return data
+}
 
 // DASHBOARD PAGE (NO.1)
 export const loadAreasByUser =  async (userId) => {

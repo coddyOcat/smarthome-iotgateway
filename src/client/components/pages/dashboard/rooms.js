@@ -18,6 +18,7 @@ const Rooms = () => {
             name: 'Living room'
         }
     ])
+    const [listDevice, setlistDevice] = useState([])
     useEffect( async () => {
         const listAreas = await loadAreasByUser(id)
         settargetRoomId(listAreas[0]._id)
@@ -26,7 +27,10 @@ const Rooms = () => {
 
     useEffect( async () => {
         const listDevices = await loadDevicesByArea(targetRoomId)
-        if (listDevices != "NOT OK") console.log(listDevices)
+        if (listDevices != "NOT OK") {
+          setlistDevice(listDevices)
+          console.log(listDevices)  
+        }
     }, [targetRoomId])
 
     const slide = (shift) => {
@@ -69,11 +73,9 @@ const Rooms = () => {
         </Row>
         <Title>All devices</Title>
         <AllDevice>
-            <Device shadow={true}/>
-            <Device shadow={true}/>
-            <Device shadow={true}/>
-            <Device shadow={true}/>
-            <Device shadow={true}/>
+            {listDevice.map((device)=> {
+              return (<Device setlistDevice={setlistDevice} listDevice={listDevice} device={device} shadow={true}/>)
+            })}
         </AllDevice>
         </Container>
     )
