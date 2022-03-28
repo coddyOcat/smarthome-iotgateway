@@ -6,7 +6,7 @@
     "private": false,
     "main": "src/server/index.js",
     "scripts": {
-        "demo": "concurrently \"npm run server\" \"npm run client\" \"py microbit/main.py\"",
+        "demo": "concurrently \"npm run server\" \"npm run client\" \"py src/microbit/main.py\"",
         "dev": "concurrently \"npm run server\" \"npm run client\"",
         "client": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
         "server": "nodemon src/server/index.js",
