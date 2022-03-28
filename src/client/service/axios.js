@@ -44,6 +44,7 @@ export const login =  async (formData) => {
 //     const { data }  = await axios.post(url, formData)
 //     return data
 // }
+
 // // DASHBOARD PAGE
 // export const updateData =  async (deviceId, formData) => {
 //     url = `/device/${deviceId}/data`
@@ -51,21 +52,21 @@ export const login =  async (formData) => {
 //     return data
 // }
 
-// // DASHBOARD PAGE (NO.1)
-// export const loadAreasByUser =  async (userId) => {
-//     url = `/user/${userId}/area`
-//     const { data }  = await axios.get(url)
-//     return data
-// }
-// export const loadDevicesByArea =  async (areaId) => {
-//     url = `/area/${areaId}/device`
-//     const { data }  = await axios.get(url)
-//     return data
-// }
+// DASHBOARD PAGE (NO.1)
+export const loadAreasByUser =  async (userId) => {
+    const url = `/user/${userId}/area`
+    const { data }  = await axios.get(url)
+    return data
+}
+export const loadDevicesByArea =  async (areaId) => {
+    const url = `/area/${areaId}/device`
+    const { data }  = await axios.get(url)
+    return data
+}
 
 // // DASHBOARD PAGE (NO.2)
 // export const loadListTypeNameByUser = async (userId) => {
-//     url = `/user/${userId}/type`
+//     const url = `/user/${userId}/type`
 //     const { data }  = await axios.get(url)
 //     return data
 // }
@@ -83,11 +84,11 @@ export const loadDatasByDevice = async (deviceName) => {
 }
 
 // // MODE
-// export const loadModesByUser = async (userId) => {
-//     url = `/user/${userId}/mode`
-//     const { data }  = await axios.get(url)
-//     return data
-// }
+export const loadModesByUser = async (userId) => {
+    const url = `/user/${userId}/mode`
+    const { data }  = await axios.get(url)
+    return data
+}
 // export const updateMode = async (modeId, formData) => {
 //     url = `/mode/${modeId}`
 //     const { data } = await axios.post(url, formData)

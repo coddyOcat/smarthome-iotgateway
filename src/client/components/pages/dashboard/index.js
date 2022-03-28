@@ -15,7 +15,7 @@ function Dashboard() {
     <DashboardContainer>
       <Row>
         <TypeButton className={type === 'room' ? 'active' : ''} onClick={() => changeType('room')}>ROOMS</TypeButton>
-        <TypeButton className={type === 'device' ? 'active' : ''} onClick={() => changeType('device')}>DEVICES</TypeButton>
+        {/* <TypeButton className={type === 'device' ? 'active' : ''} onClick={() => changeType('device')}>DEVICES</TypeButton> */}
       </Row>
       {type === 'room' ? <Rooms/> : <Devices/>}
     </DashboardContainer>

@@ -63,6 +63,9 @@ router.get("/welcome", (_, res) => {
 router.post("/signup", signup)
 router.post("/login", login)
 router.get("/device/:deviceName/data", loadDatasByDevice)
+router.get("/user/:userId/area", loadAreasByUser)
+router.get("/area/:areaId/device", loadDevicesByArea)
+router.get("/user/:userId/type", loadListTypeNameByUser)
 
 module.exports = (app) => {
     app.use("/api", router)
