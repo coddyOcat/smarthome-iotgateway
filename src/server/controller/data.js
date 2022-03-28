@@ -17,9 +17,9 @@ exports.createData = async (req, res, next) => {}
 exports.showData = async (req, res, next) => {}
 exports.updateData = async (req, res, next) => {
     try {
-        const device = await Device.findOne({ name: req.params.deviceName })
+        const device = await Device.findOneAndUpdate({ name: req.params.deviceName }, {isActive: req.body.isActive})
         const formData = new Data({
-            dataValue: req.body.dataValue,
+            dataValue: (req.body.isActive? "1" : "0"),
             device: device._id
         })
         await formData.save()

@@ -12,8 +12,7 @@ import SpeakerIcon from '@mui/icons-material/Speaker';
 import { updateData } from '../../../service/axios'
 
 const Device = (props) => {
-  const handleChange =  (deviceName, data) => {
-    // const res = await updateData(deviceName, data)
+  const handleChange = async (deviceName, data) => {
     props.setlistDevice(props.listDevice.map( item => {
       if (item.name == deviceName) item.isActive = data.isActive
       return {
@@ -22,6 +21,8 @@ const Device = (props) => {
           ...item
       }
     }))
+    const res = await updateData(deviceName, data)
+    console.log(res)
   }
   return (
     <Container color={props.color} width={props.width} shadow={props.shadow}>
@@ -36,8 +37,8 @@ const Device = (props) => {
           {props.device.typeName==='light-sensor'&& <SensorsIcon/>}
           {props.device.typeName==='buzzer'&& <SpeakerIcon/>}
         </Icon>
-        <Switch 
-          checked={props.device.isActive} 
+        <Switch
+          checked={props.device.isActive}
           disabled={props.device.isModded}
           onChange={()=>handleChange(props.device.name, {isActive: !props.device.isActive})}/>
       </Row>
