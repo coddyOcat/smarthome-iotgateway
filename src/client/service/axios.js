@@ -45,12 +45,12 @@ export const login =  async (formData) => {
 //     return data
 // }
 
-// // DASHBOARD PAGE
-// export const updateData =  async (deviceId, formData) => {
-//     url = `/device/${deviceId}/data`
-//     const { data }  = await axios.post(url, formData)
-//     return data
-// }
+// DASHBOARD PAGE
+export const updateData =  async (deviceName, formData) => {
+    const url = `/device/${deviceName}/data`
+    const { data }  = await axios.post(url, formData)
+    return data
+}
 
 // DASHBOARD PAGE (NO.1)
 export const loadAreasByUser =  async (userId) => {
@@ -89,9 +89,9 @@ export const loadModesByUser = async (userId) => {
     const { data }  = await axios.get(url)
     return data
 }
-// export const updateMode = async (modeId, formData) => {
-//     url = `/mode/${modeId}`
-//     const { data } = await axios.post(url, formData)
-//     return data
-// }
+export const updateMode = async (modeId, formData) => {
+    const url = `/mode/${modeId}`
+    const { data } = await axios.post(url, formData)
+    return data
+}
 

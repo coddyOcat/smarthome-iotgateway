@@ -9,15 +9,17 @@ import Sidebar from "../sidebar"
 import Topbar from "../topbar";
 
 import { useParams } from "react-router-dom"
-import { loadModesByUser } from "../../service/axios"
+import { loadModesByUser, updateMode } from "../../service/axios"
 
 const Auto = () => {
     const {id} = useParams()
     const [ModeData, setModeData] = useState([
         {
-          title: 'Light Mode',
-          icon: <LightbulbIcon style={{fontSize:50}}/>,
-          description: 'You can switch auto mode on light here'
+            id: "0",
+            isActive: false,
+            title: 'Light Mode',
+            icon: <LightbulbIcon style={{fontSize:50}}/>,
+            description: 'You can switch auto mode on light here'
         }
     ])
     useEffect( async() => {
@@ -45,11 +47,26 @@ const Auto = () => {
             }
             return {
                 id: item._id,
+                isActive: item.isActive,
                 ...form
             }
         })
         setModeData(lisst)
+        console.log(lisst)
     },[])
+
+    const handleChange = async (modeId, formData) => {
+        setModeData(ModeData.map( item => {
+            if (item.id == modeId) item.isActive = formData.isActive
+            return {
+                id: item.id,
+                isActive: item.isActive,
+                ...item
+            }
+        }))
+        const res = await updateMode(modeId, formData)
+        console.log(res)
+    }
   return (
     <AutoContainer>
       {
@@ -62,9 +79,9 @@ const Auto = () => {
                 </ItemIcon>
                 <ItemSwitch>
                   <Switch
-                  // checked={checked}
-                  // onChange={handleChange}
-                  // inputProps={{ 'aria-label': 'controlled' }}
+                    checked={item.isActive}
+                    onChange={() => handleChange(item.id, {isActive: !item.isActive})}
+                    // inputProps={{ 'aria-label': 'controlled' }}
                   />
                 </ItemSwitch>
               </IconSwitch>

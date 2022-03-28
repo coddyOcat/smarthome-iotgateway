@@ -9,11 +9,23 @@ exports.loadDatasByDevice = async (req, res, next) => {
         const datas = await Data.find({ device: device._id })
         res.json(datas)
     } catch(err) {
-        res.json({status: "NOT OK"})
+        res.json("NOT OK")
     }
 }
 
 exports.createData = async (req, res, next) => {}
 exports.showData = async (req, res, next) => {}
-exports.updateData = async (req, res, next) => {}
+exports.updateData = async (req, res, next) => {
+    try {
+        const device = await Device.findOne({ name: req.params.deviceName })
+        const formData = new Data({
+            dataValue: req.body.dataValue,
+            device: device._id
+        })
+        await formData.save()
+        res.json("OK")
+    } catch(err) {
+        res.json("NOT OK")
+    }
+}
 exports.removeData = async (req, res, next) => {}

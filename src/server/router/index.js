@@ -67,6 +67,8 @@ router.get("/user/:userId/area", loadAreasByUser)
 router.get("/area/:areaId/device", loadDevicesByArea)
 // router.get("/user/:userId/type", loadListTypeNameByUser)
 router.get("/user/:userId/mode", loadModesByUser)
+router.post("/device/:deviceName/data", updateData)
+router.post("/mode/:modeId", updateMode)
 
 module.exports = (app) => {
     app.use("/api", router)
