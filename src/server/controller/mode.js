@@ -1,6 +1,13 @@
 const Mode = require("../model/mode")
 
-exports.loadModes = async (req, res, next) => {}
+exports.loadModesByUser = async (req, res, next) => {
+    try {
+        const datas = await Mode.find()
+        res.json(datas)
+    } catch(err) {
+        res.json("NOT OK")
+    }
+}
 exports.loadModesByActive = async (req, res, next) => {}
 
 exports.createMode = async (req, res, next) => {}
