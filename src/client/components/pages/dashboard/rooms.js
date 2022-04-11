@@ -25,13 +25,15 @@ const Rooms = () => {
         setRooms(listAreas.map( item => { return {id: item._id, name: item.areaName }}))
     }, [])
 
-    useEffect( async () => {
-        const listDevices = await loadDevicesByArea(targetRoomId)
-        if (listDevices != "NOT OK") {
-          setlistDevice(listDevices)
-          console.log(listDevices)  
-        }
-    }, [targetRoomId])
+    useEffect( () => {
+        setTimeout( async () => {
+            const listDevices = await loadDevicesByArea(targetRoomId)
+            if (listDevices != "NOT OK") {
+                setlistDevice(listDevices)
+                console.log(listDevices)
+            }
+        }, 1000)
+    }, [targetRoomId, listDevice])
 
     const slide = (shift) => {
         scrl.current.scrollLeft += shift;
@@ -74,8 +76,8 @@ const Rooms = () => {
         <Title>All devices</Title>
         <AllDevice>
             {listDevice.map((device)=> {
-                if(device.typeName !== 'light-sensor' && device.typeName !== 'buzzer') 
-                    return (<Device setlistDevice={setlistDevice} listDevice={listDevice} device={device} shadow={true}/>)
+                if(device.typeName !== 'light-sensor' && device.typeName !== 'buzzer')
+                    return (<Device key={device._id} setlistDevice={setlistDevice} listDevice={listDevice} device={device} shadow={true}/>)
             })}
         </AllDevice>
         </Container>

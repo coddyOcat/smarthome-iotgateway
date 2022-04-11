@@ -14,74 +14,6 @@ import { useParams } from 'react-router-dom'
 import { loadDatasByDevice } from '../../service/axios'
 import { ConstructionOutlined } from '@mui/icons-material';
 
-const chartOptions1 = {
-    series: [{
-        name: 'Temperature',
-        data: [30, 40, 27, 29, 40, 31, 29, 42, 20, 18, 24, 22]
-    }],
-    options: {
-        color: ['#4099c8'],
-        chart: {
-            background: 'transparent'
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            curve: 'smooth'
-        },
-        xaxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-        },
-        yaxis: {
-            title: {
-                text: "Temparature(\u00b0C)"
-            }
-        },
-        legend: {
-            position: 'top'
-        },
-        grid: {
-            show: false
-        }
-    }
-
-}
-
-const chartOptions2 = {
-    series: [{
-        name: 'Humidity',
-        data: [30, 40, 27, 29, 40, 31, 29, 42, 20, 18, 24, 22]
-    }],
-    options: {
-        color: ['#4099c8'],
-        chart: {
-            background: 'transparent'
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            curve: 'smooth'
-        },
-        xaxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-        },
-        yaxis: {
-            title: {
-                text: "Humidity(%)"
-            }
-        },
-        legend: {
-            position: 'top'
-        },
-        grid: {
-            show: false
-        }
-    }
-
-}
-
 function Home() {
     // const { id } = useParams()
     const [dataForm, setData] = useState({
@@ -91,7 +23,7 @@ function Home() {
         temperature_chart_1: [],
         gar_chart_1: []
     })
-    const [optionsTemp, setOptionsTemp] = useState({
+    const optionsTemp = {
         chart: {
           id: 'temp',
           type: 'area',
@@ -118,6 +50,7 @@ function Home() {
             borderColor: '#999',
             yAxisIndex: 0,
             label: {
+                datetimeUTC: true,
               show: true,
               text: 'Rally',
               style: {
@@ -136,7 +69,7 @@ function Home() {
         },
         xaxis: {
           type: 'datetime',
-          min: new Date(new Date().setDate(new Date().getDate() - 1)).getTime(),
+          min: new Date(new Date().setSeconds(new Date().getSeconds() - 1800)).getTime() + 25200000,
           tickAmount: 6,
         },
         tooltip: {
@@ -153,8 +86,8 @@ function Home() {
             stops: [0, 100]
           }
         },
-    })
-    const [optionsHumid, setOptionsHumid] = useState({
+    }
+    const optionsHumid = {
         chart: {
           id: 'humid',
           type: 'area',
@@ -167,14 +100,6 @@ function Home() {
           yaxis: [{
             y: 30,
             borderColor: '#999',
-            // label: {
-            //   show: true,
-            //   text: 'Support',
-            //   style: {
-            //     color: "#fff",
-            //     background: '#00E396'
-            //   }
-            // }
           }],
           xaxis: [{
             x: new Date('14 Nov 2012').getTime(),
@@ -199,7 +124,7 @@ function Home() {
         },
         xaxis: {
           type: 'datetime',
-          min: new Date(new Date().setDate(new Date().getDate() - 1)).getTime(),
+          min:  new Date(new Date().setSeconds(new Date().getSeconds() - 1800)).getTime() + 25200000,
           tickAmount: 6,
         },
         tooltip: {
@@ -216,7 +141,7 @@ function Home() {
             stops: [0, 100]
           }
         },
-    })
+    }
     const [selectionTemp, setSelectionTemp] = useState('')
     const [selectionHumid, setSelectionHumid] = useState('')
     const updateData = (timeline, id)=> {
@@ -274,32 +199,32 @@ function Home() {
             default:
         }
     }
-    setTimeout( () => {
-        Promise.all([
-            loadDatasByDevice("temperature-1"),
-            loadDatasByDevice("humidity-1"),
-            loadDatasByDevice("gas-1")
-        ]).then((data) => {
-            const [tempNew, humidNew, gasNew] = data
-            const temps = tempNew.map((temp)=> {
-                return [Date.parse(temp.created.slice(0,19)), temp.dataValue]
-            })
-            const humids = humidNew.map((humi)=> {
-                return [Date.parse(humi.created.slice(0,19)), humi.dataValue]
-            })
-            const tempSeries = [{data: temps}]
-            const humidSeries = [{data: humids}]
-            setData({
-                temperature_1: tempNew[tempNew.length-1].dataValue,
-                humidity_1: humidNew[humidNew.length-1].dataValue,
-                gas_1: gasNew[gasNew.length-1].dataValue,
-                temperature_chart_1: tempSeries,
-                gar_chart_1: humidSeries
-            })
-        })
-    }, 1000)
 
     useEffect(() => {
+        setTimeout( () => {
+            Promise.all([
+                loadDatasByDevice("temperature-1"),
+                loadDatasByDevice("humidity-1"),
+                loadDatasByDevice("gas-1")
+            ]).then((data) => {
+                const [tempNew, humidNew, gasNew] = data
+                const temps = tempNew.map((temp)=> {
+                    return [Date.parse(temp.created.slice(0,19)) + 25200000, temp.dataValue]
+                })
+                const humids = humidNew.map((humi)=> {
+                    return [Date.parse(humi.created.slice(0,19)) + 25200000, humi.dataValue]
+                })
+                const tempSeries = [{data: temps}]
+                const humidSeries = [{data: humids}]
+                setData({
+                    temperature_1: tempNew[tempNew.length-1].dataValue,
+                    humidity_1: humidNew[humidNew.length-1].dataValue,
+                    gas_1: Math.ceil(gasNew[gasNew.length-1].dataValue/1.2),
+                    temperature_chart_1: tempSeries,
+                    gar_chart_1: humidSeries
+                })
+            })
+        }, 1000)
         console.log(dataForm)
     }, [dataForm])
     return (

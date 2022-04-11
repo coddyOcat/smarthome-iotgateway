@@ -36,7 +36,7 @@ exports.microbitUpdateData = async (req, res, next) => {
         if (!device) {
             res.status(404).send("NOT OK")
         }
-        if (device.typeName == "room-light" || device.typeName == "fan") {
+        if (device.typeName == "room-light" || device.typeName == "fan" || device.typeName == "door") {
             const boolz = req.body.dataValue == "1"? true: false
             await Device.findOneAndUpdate({ name: req.body.deviceName }, {isActive: boolz})
         }
