@@ -1,6 +1,6 @@
 const Mode = require("../model/mode")
 const Device = require("../model/device")
-const Microbit = require("../service/microbit")
+const { addMicrobitData } = require("../service/microbit")
 
 exports.loadModesByUser = async (req, res, next) => {
     try {
@@ -18,7 +18,7 @@ exports.updateMode = async (req, res, next) => {
     try {
         const thisMode = await Mode.findOneAndUpdate({_id: req.params.modeId}, {isActive: req.body.isActive})
         const boolz = req.body.isActive? "1" : "0"
-        Microbit(thisMode.name, boolz)
+        addMicrobitData(thisMode.name, boolz)
         thisMode.deviceList.map( async (device) => {
             await Device.findOneAndUpdate({_id: device}, {isModded: req.body.isActive})
         })

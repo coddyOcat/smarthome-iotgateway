@@ -16,3 +16,16 @@ def updateData(deviceName, dataValue):
         print("Unknown!")
 
 # updateData("fan-1", "0")
+
+def getData():
+    port = "http://localhost:8080/api"
+    headers = {'content-type': 'application/json'}
+    res = req.get(port+"/microbit/getData", headers = headers)
+
+    if res.status_code == 200:
+        data = res.json()
+        return [data["field_name"], data["value"]]
+    elif res.status_code == 404:
+        return None
+    else:
+        return None

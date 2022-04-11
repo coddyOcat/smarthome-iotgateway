@@ -56,6 +56,7 @@ const {
     removeMode,
     loadDeviceList
 } = require("../controller/mode")
+const { getMicrobitData } = require("../service/microbit")
 
 router.get("/welcome", (_, res) => {
     res.send("OK")
@@ -71,6 +72,7 @@ router.get("/user/:userId/mode", loadModesByUser)
 router.post("/device/:deviceName/data", updateData)
 router.post("/mode/:modeId", updateMode)
 router.post("/microbit/updateData", microbitUpdateData)
+router.get("/microbit/getData", getMicrobitData)
 
 module.exports = (app) => {
     app.use("/api", router)

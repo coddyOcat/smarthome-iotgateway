@@ -1,32 +1,21 @@
-const path = require("path")
-let { PythonShell } = require('python-shell')
+const MicrobitData = require("./microbitModel")
 
-const axios = require("axios")
-const sendData = async (feed_id, feed_value) => {
-    axios.post('http://127.0.0.1:8989/post', {
-        feed_id: feed_id,
-        feed_value: feed_value
-    })
-    .then(function (response) {
-      const data = response.data;
-      console.log(data)
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
+exports.addMicrobitData = async (deviceName, deviceValue) => {
+  const formData = new MicrobitData({
+    field_name: deviceName,
+    value: deviceValue,
+  })
+  await formData.save()
 }
 
-module.exports =  (feed_id, feed_value) => {
-    // var options = {
-    //     pythonOptions: ['-u'], // get print results in real-time
-    //         scriptPath: __dirname,
-    //     args: [feed_id, feed_value]
-    // }
-
-    // PythonShell.run("microbit.py", options, function(err, data) {
-    //     if (err) console.log(err)
-    //     else console.log(data)
-    // })
-    sendData(feed_id, feed_value)
+exports.getMicrobitData = async (req, res, next) => {
+  try {
+      const device = await MicrobitData.findOneAndDelete()
+      console.log(device)
+      if (device)
+        res.status(200).send(device)
+      else res.status(404).send("NOT OK")
+  } catch(err) {
+      res.status(404).send("NOT OK")
+  }
 }
-
