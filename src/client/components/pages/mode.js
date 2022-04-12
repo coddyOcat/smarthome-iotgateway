@@ -22,7 +22,8 @@ const Auto = () => {
             description: 'You can switch auto mode on light here'
         }
     ])
-    useEffect( async() => {
+    useEffect( () => {
+        setTimeout(async()=> {
         const listModes = await loadModesByUser(id)
         const lisst = listModes.map( item => {
             let form = {}
@@ -53,7 +54,8 @@ const Auto = () => {
         })
         setModeData(lisst)
         console.log(lisst)
-    },[])
+    }, 1000)
+    },[ModeData])
 
     const handleChange = async (modeId, formData) => {
         setModeData(ModeData.map( item => {

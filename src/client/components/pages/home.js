@@ -219,7 +219,7 @@ function Home() {
                 setData({
                     temperature_1: tempNew[tempNew.length-1].dataValue,
                     humidity_1: humidNew[humidNew.length-1].dataValue,
-                    gas_1: Math.ceil(gasNew[gasNew.length-1].dataValue/1.2),
+                    gas_1: Math.ceil(gasNew[gasNew.length-1].dataValue/7),
                     temperature_chart_1: tempSeries,
                     gar_chart_1: humidSeries
                 })
