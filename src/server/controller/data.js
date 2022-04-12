@@ -13,6 +13,16 @@ exports.loadDatasByDevice = async (req, res, next) => {
         res.json("NOT OK")
     }
 }
+exports.loadDatasByDeviceApp = async (req, res, next) => {
+    try {
+        const device = await Device.findOne({ name: req.params.deviceName })
+        const datas = await Data.find({ device: device._id }).sort({'created': -1}).limit(20)
+        res.json(datas)
+    } catch(err) {
+        res.json("NOT OK")
+    }
+}
+
 
 exports.createData = async (req, res, next) => {}
 exports.showData = async (req, res, next) => {}

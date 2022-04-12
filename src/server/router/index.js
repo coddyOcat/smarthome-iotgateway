@@ -40,6 +40,7 @@ const {
     loadDatas,
     loadDatasByTime,
     loadDatasByDevice, //
+    loadDatasByDeviceApp,
     createData,
     showData, //
     updateData,
@@ -65,6 +66,7 @@ router.get("/welcome", (_, res) => {
 router.post("/signup", signup)
 router.post("/login", login)
 router.get("/device/:deviceName/data", loadDatasByDevice)
+router.get("/device/:deviceName/dataapp", loadDatasByDeviceApp)
 router.get("/user/:userId/area", loadAreasByUser)
 router.get("/area/:areaId/device", loadDevicesByArea)
 // router.get("/user/:userId/type", loadListTypeNameByUser)
