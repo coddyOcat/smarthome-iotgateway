@@ -74,3 +74,5 @@ if __name__ == "__main__":
             data = requestapi.getData()
             if data:
                 message(data[0], data[1])
+        else:
+            break
