@@ -2,7 +2,7 @@ import requests as req
 import json
 
 def updateData(deviceName, dataValue):
-    port = "http://localhost:8080/api"
+    port = "https://smarthome-server-deloy.herokuapp.com/api"
     data = {"deviceName": deviceName, "dataValue": dataValue}
     headers = {'content-type': 'application/json'}
 
@@ -18,7 +18,7 @@ def updateData(deviceName, dataValue):
 # updateData("fan-1", "0")
 
 def getData():
-    port = "http://localhost:8080/api"
+    port = "https://smarthome-server-deloy.herokuapp.com/api"
     headers = {'content-type': 'application/json'}
     res = req.get(port+"/microbit/getData", headers = headers)
 

@@ -1,6 +1,6 @@
 import Axios from "axios"
 const axios = Axios.create({
-    baseURL: (process.env.REACT_APP_API_SITE_NAME || 'http://localhost:8080') + '/api',
+    baseURL: 'https://smarthome-server-deloy.herokuapp.com/api',
     headers: {
         Accept: 'application/json,application/x-www-form-urlencoded,text/plain,*/*',
         'Content-Type': 'application/json;charset=utf-8',
