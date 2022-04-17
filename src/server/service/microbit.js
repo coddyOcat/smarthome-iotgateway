@@ -11,7 +11,6 @@ exports.addMicrobitData = async (deviceName, deviceValue) => {
 exports.getMicrobitData = async (req, res, next) => {
   try {
       const device = await MicrobitData.findOneAndDelete()
-      console.log(device)
       if (device)
         res.status(200).send(device)
       else res.status(404).send("NOT OK")

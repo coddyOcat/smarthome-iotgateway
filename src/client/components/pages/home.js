@@ -36,14 +36,6 @@ function Home() {
           yaxis: [{
             y: 30,
             borderColor: '#999',
-            label: {
-              show: true,
-              text: 'Support',
-              style: {
-                color: "#fff",
-                background: '#00E396'
-              }
-            }
           }],
           xaxis: [{
             x: new Date('14 Nov 2012').getTime(),
@@ -69,7 +61,7 @@ function Home() {
         },
         xaxis: {
           type: 'datetime',
-          min: new Date(new Date().setSeconds(new Date().getSeconds() - 1800)).getTime() + 25200000,
+          min: new Date(new Date().setSeconds(new Date().getSeconds() - 300)).getTime() + 25200000,
           tickAmount: 6,
         },
         tooltip: {
@@ -124,7 +116,7 @@ function Home() {
         },
         xaxis: {
           type: 'datetime',
-          min:  new Date(new Date().setSeconds(new Date().getSeconds() - 1800)).getTime() + 25200000,
+          min:  new Date(new Date().setSeconds(new Date().getSeconds() - 300)).getTime() + 25200000,
           tickAmount: 6,
         },
         tooltip: {
