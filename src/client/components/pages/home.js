@@ -3,16 +3,12 @@ import styled from "styled-components"
 import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat';
 import OpacityIcon from '@mui/icons-material/Opacity';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
-import { CircularProgressbar } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
 import ReactApexChart from "react-apexcharts";
 
 import Sidebar from "../sidebar"
 import Topbar from "../topbar";
-
-import { useParams } from 'react-router-dom'
 import { loadDatasByDevice } from '../../service/axios'
-import { ConstructionOutlined } from '@mui/icons-material';
+import GaugeChart from 'react-gauge-chart'
 
 function Home() {
     // const { id } = useParams()
@@ -247,9 +243,15 @@ function Home() {
                                 Humidity
                             </Label>
                             <Data>
+                                <CircularMini wid='20px' color={dataForm.humidity_1 < 40 ? '#4EADFD' : (dataForm.humidity_1 > 70 ? '#F5CD19' : '#5BE12C')}/>
                                 {dataForm.humidity_1}%
                             </Data>
                         </DataContainer >
+                        <Note>
+                            <NoteItem><CircularMini color='#4EADFD'/> 0-40: Dry</NoteItem>
+                            <NoteItem><CircularMini/> 40-70: Comfort</NoteItem>
+                            <NoteItem><CircularMini color='#EA4228'/> 70-100: Wet</NoteItem>
+                        </Note>
                     </Item>
                 </TempHumi>
                 <Gas>
@@ -261,7 +263,18 @@ function Home() {
                             Gas sensivity
                         </Label>
                         <GasChart>
-                            <CircularProgressbar value={dataForm.gas_1} text={dataForm.gas_1+'%'} />
+                            <GaugeChart id="gauge-chart5"
+                                nrOfLevels={420}
+                                textColor="#333"
+                                arcsLength={[0.5, 0.45, 0.05]}
+                                colors={['#5BE12C', '#F5CD19', '#EA4228']}
+                                percent={dataForm.gas_1/100}
+                                arcPadding={0.02}
+                            />
+                            <Row>
+                            <MiniBox/>Normal
+                            <MiniBox color='#F5CD19'/>Warning
+                            <MiniBox color='#EA4228'/>Danger</Row>
                         </GasChart>
                     </DataGas>
                 </Gas>
@@ -338,6 +351,37 @@ export default function homePage() {
     )
 }
 
+const NoteItem = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 20px;
+`
+const Note = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+`
+const CircularMini = styled.div`
+    border-radius: 50%;
+    width: ${$props => $props.wid ? $props.wid : '10px'};
+    height: ${$props => $props.wid ? $props.wid : '10px'};
+    background-color: ${$props => $props.color ? $props.color : '#5BE12C'};
+    margin-right: 5px;
+`
+const Row = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+`
+const MiniBox = styled.div`
+    width: 10px;
+    height: 10px;
+    background-color: ${$props => $props.color ? $props.color : '#5BE12C'};
+    margin-right: 5px;
+    margin-left: 10px;
+`
 const Container = styled.div`
   display: flex;
   flex-direction: row;
@@ -434,12 +478,16 @@ const DataContainer = styled.div`
 `
 
 const Data = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     font-size: 2rem;
 `
 
 const Label = styled.div`
     font-size: 1.4rem;
     margin: 8px 0;
+    text-align: center;
 `
 
 const DataSign = styled.span`
@@ -450,6 +498,5 @@ const DataGas = styled.div`
 `
 
 const GasChart = styled.div`
-    width: 150px;
-    height: 150px;
+    width: 100%;
 `
